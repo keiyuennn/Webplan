@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>我的旅行足跡</title>
+<style>
+:root{--bg1:#dff1fd;--bg2:#f7fbff;--ink:#17324a;--muted:#5b7186;--glass:rgba(255,255,255,.74);--glass2:rgba(255,255,255,.58);--border:rgba(255,255,255,.70);--line:rgba(23,50,74,.10);--accent:#2f8fe0;--green:#2fbf71;--amber:#f5a524;--red:#ef4444;--shadow:0 8px 22px rgba(31,98,159,.10)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans HK","PingFang HK",sans-serif;padding-bottom:104px;background:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,#eaf6ff);position:relative;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.45}
+body::before{width:420px;height:420px;background:radial-gradient(circle at 30% 30%,#9fd4ff,#dff1fd);top:-140px;left:-120px}
+body::after{width:380px;height:380px;background:radial-gradient(circle at 70% 70%,#c9e9ff,#eef8ff);bottom:-140px;right:-120px}
+header{position:sticky;top:0;z-index:20;margin:12px 12px 0;padding:14px 16px;border-radius:22px;background:var(--glass);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid var(--border);box-shadow:var(--shadow)}
+h1{margin:0;font-size:20px}.sub{color:var(--muted);font-size:12px;margin-top:3px}
+main{padding:16px 14px 20px;max-width:760px;margin:auto}
+.card{background:var(--glass);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid var(--border);border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--glass2);border:1px solid var(--border);border-radius:18px;padding:12px 8px;text-align:center}
+.stat b{display:block;font-size:22px;color:var(--accent)}.stat span{font-size:11px;color:var(--muted)}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;background:rgba(255,255,255,.82);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:13px;font-size:15px}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(47,143,224,.35);border-color:var(--accent)}
+textarea{min-height:96px;resize:vertical}.row{display:flex;gap:10px}.row>*{flex:1}
+button{border:0;border-radius:14px;padding:13px 16px;font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--accent),#5aa9ec);color:#fff;width:100%;box-shadow:0 8px 20px rgba(47,143,224,.22)}
+button.ghost{background:rgba(255,255,255,.60);color:var(--ink);border:1px solid var(--border);box-shadow:none}
+button.small{padding:9px 12px;font-size:13px;width:auto}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;margin:12px 0}
+.chip{white-space:nowrap;background:rgba(255,255,255,.65);border:1px solid var(--border);color:var(--muted);padding:9px 14px;border-radius:999px;font-size:13px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.chip.active{background:linear-gradient(135deg,var(--accent),#5aa9ec);color:#fff;border-color:transparent}
+.item{background:var(--glass);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid var(--border);border-radius:22px;overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.item img{width:100%;max-height:240px;object-fit:cover;display:block}
+.body{padding:14px}.title{font-weight:800;font-size:16px}.meta{color:var(--muted);font-size:12px;margin:4px 0 10px}
+.note{white-space:pre-wrap;font-size:14px;line-height:1.55}
+.badge{display:inline-block;font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px;background:rgba(255,255,255,.55)}
+.badge.done{color:#177245;background:rgba(47,191,113,.14);border-color:rgba(47,191,113,.3)}
+.badge.want{color:#9a6200;background:rgba(245,165,36,.16);border-color:rgba(245,165,36,.35)}
+.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.actions button{padding:9px 12px;font-size:13px;width:auto}
+.maps{display:flex;gap:10px;margin-top:12px}.maps a{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:13px;padding:11px;border-radius:14px}
+.maps .view{background:rgba(255,255,255,.70);color:#1c5f96;border:1px solid var(--border)}
+.maps .nav{background:linear-gradient(135deg,var(--accent),#5aa9ec);color:#fff}
+.embed{margin-top:12px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.80);border:1px solid var(--border)}.embed iframe{width:100%;min-height:420px;border:0}
+.link{display:inline-block;color:var(--accent);font-size:13px;text-decoration:none;margin-top:8px;word-break:break-all}
+.empty{text-align:center;color:var(--muted);padding:40px 12px;font-size:14px}
+nav{position:fixed;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.80);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid var(--border);border-radius:22px;display:flex;z-index:30;padding:6px;box-shadow:0 10px 26px rgba(31,98,159,.14);padding-bottom:calc(6px + env(safe-area-inset-bottom));overflow-x:auto}
+nav button{background:none;color:var(--muted);font-size:10px;padding:8px 10px 10px;border-radius:16px;white-space:nowrap}
+nav button.active{color:#fff;background:linear-gradient(135deg,var(--accent),#5aa9ec)}
+nav span{display:block;font-size:19px;margin-bottom:2px}
+.fab{position:fixed;right:18px;bottom:96px;z-index:35;width:58px;height:58px;border-radius:50%;font-size:27px;background:linear-gradient(135deg,var(--accent),#5aa9ec);box-shadow:0 12px 28px rgba(47,143,224,.28)}
+.modal{position:fixed;inset:0;background:rgba(23,50,74,.28);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:50;display:none;overflow:auto;padding:16px}.modal.open{display:block}
+.sheet{background:rgba(255,255,255,.90);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--border);border-radius:24px;max-width:620px;margin:24px auto;padding:18px;box-shadow:0 16px 40px rgba(31,98,159,.18)}
+.hidden{display:none!important}
+.result{margin-top:12px;padding:14px;background:var(--glass2);border:1px solid var(--border);border-radius:16px;font-size:15px}
+.savebar{position:fixed;left:50%;transform:translateX(-50%);bottom:104px;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);color:#177245;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.25s}
+.savebar.show{opacity:1}.savebar.error{color:#b42318}
+</style>
+</head>
+<body>
+
+<header><h1>🌍 我的旅行足跡</h1><div class="sub">餐廳 · 景點 · 購物 · 遊記 · Hashtag</div></header>
+
+<main>
+<section id="view-home">
+<div class="card"><div class="grid">
+<div class="stat"><b id="sCountries">0</b><span>國家</span></div>
+<div class="stat"><b id="sVisited">0</b><span>已到訪</span></div>
+<div class="stat"><b id="sWishlist">0</b><span>想去</span></div>
+</div></div>
+<div class="card"><b>最近記錄</b><div id="recent" style="margin-top:10px"></div></div>
+<div id="collectionFilterBar" class="hidden" style="margin-bottom:12px"><button class="ghost" onclick="clearCollectionFilter()">✕ 清除收藏夾篩選</button></div>
+<input id="search" placeholder="搜尋餐廳、景點、物品、筆記或 #Hashtag…" oninput="render()">
+<div class="chips" id="filters"></div>
+<div id="items"></div>
+</section>
+
+<section id="view-map" class="hidden">
+<div class="card">
+<b>✨ 自訂收藏夾</b>
+<p class="sub">已預設日本、韓國、香港、意大利及其子收藏夾；亦可自行新增。</p>
+<div class="row" style="margin-top:10px"><input id="collectionName" placeholder="收藏夾名稱"><button style="width:auto" onclick="addCollection()">＋</button></div>
+<div id="collections" style="margin-top:12px"></div>
+</div>
+<div class="card"><b>地點總覽</b><p class="sub">點擊國家查看該國所有記錄。</p></div>
+<div id="countries"></div>
+</section>
+
+<section id="view-settings" class="hidden">
+<div class="card"><b>資料備份</b><p class="sub">資料儲存在此裝置瀏覽器的 IndexedDB。建議定期匯出備份檔。</p>
+<div class="row" style="margin-top:10px"><button class="ghost" onclick="exportData()">匯出 JSON</button>
+<label class="ghost" style="display:block;text-align:center;padding:12px">匯入備份<input type="file" accept=".json" hidden onchange="importData(this)"></label></div></div>
+
+<div class="card"><b>清除所有資料</b><p class="sub">此操作不可復原。</p>
+<button style="background:var(--red)" onclick="clearAll()">清除資料</button></div>
+</section>
+</main>
+
+<button class="fab" onclick="openForm()">＋</button>
+
+<nav>
+<button class="active" data-v="home" onclick="go('home')"><span>🏠</span>總覽</button>
+<button data-v="map" onclick="go('map')"><span>🗺️</span>收藏</button>
+<button data-v="settings" onclick="go('settings')"><span>⚙️</span>設定</button>
+</nav>
+
+<div class="savebar" id="savebar">✅ 已儲存</div>
+
+<div class="modal" id="formModal"><div class="sheet">
+<h2 id="formTitle">新增記錄</h2>
+<label>國家 *</label><input id="country" placeholder="例如：日本">
+<label>城市／地區</label><input id="city" placeholder="例如：東京">
+<label>收藏夾</label><select id="collectionId"><option value="">未分類</option></select>
+<label>類別 *</label><select id="category"><option value="restaurant">🍽️ 餐廳</option><option value="attraction">📍 景點</option><option value="shopping">🛍️ 想買的東西</option><option value="note">📝 遊記／筆記</option></select>
+<label>名稱 *</label><input id="name" placeholder="例如：一蘭拉麵">
+<label>Google Maps 地點／地址</label><input id="mapLocation" placeholder="例如：東京都新宿区… 或貼上 Google Maps 連結">
+<label>狀態</label><select id="status"><option value="want">想去／想買</option><option value="done">已去／已買</option></select>
+<label>評分（0–5）</label><input id="rating" type="number" min="0" max="5" step="0.5" placeholder="可留空">
+<label>Hashtag（可用空格或逗號分隔）</label><input id="hashtags" placeholder="例如：#日本 #東京 #拉麵 #必食">
+<label id="priceLabel" class="hidden">當地貨幣價格</label>
+<input id="priceLocal" type="number" inputmode="decimal" class="hidden" placeholder="例如 1500">
+<div id="currencyHint" class="sub hidden"></div>
+<label>文字記錄</label><textarea id="note" placeholder="地址、感想、必食、價錢、開放時間…"></textarea>
+<label>相片</label><input id="photo" type="file" accept="image/*" multiple>
+<label>Instagram Reels／Threads 連結</label><input id="social" placeholder="貼上公開 Reels 或 Threads 連結">
+<div class="row" style="margin-top:16px"><button class="ghost" onclick="closeForm()">取消</button><button onclick="saveForm()">儲存</button></div>
+</div></div>
+
+<script>
+const DB_NAME='travelTrackerDB',DB_VERSION=1;
+let db=null,entries=[],collections=[],editing=null,filter='all',collectionFilter='';
+let prefs={from:'HKD',to:'JPY'};
+const cats={restaurant:'🍽️ 餐廳',attraction:'📍 景點',shopping:'🛍️ 購物',note:'📝 筆記'};
+
+function openDB(){return new Promise((res,rej)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);
+req.onupgradeneeded=()=>{const d=req.result;
+if(!d.objectStoreNames.contains('entries'))d.createObjectStore('entries',{keyPath:'id'});
+if(!d.objectStoreNames.contains('collections'))d.createObjectStore('collections',{keyPath:'id'});
+if(!d.objectStoreNames.contains('prefs'))d.createObjectStore('prefs',{keyPath:'key'})};
+req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)})}
+function tx(store,mode){return db.transaction(store,mode).objectStore(store)}
+function req(r){return new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function idbAll(store){return req(tx(store,'readonly').getAll())}
+async function idbPut(store,obj){return req(tx(store,'readwrite').put(obj))}
+async function idbDel(store,key){return req(tx(store,'readwrite').delete(key))}
+async function idbClear(store){return req(tx(store,'readwrite').clear())}
+
+function showSave(msg,error){const b=document.getElementById('savebar');b.textContent=msg;b.classList.toggle('error',!!error);b.classList.add('show');clearTimeout(b._t);b._t=setTimeout(()=>b.classList.remove('show'),2200)}
+function saveFail(e){const msg=e?.name==='QuotaExceededError'?'儲存空間不足，請刪除部分相片或匯出備份。':(e?.message||'未知錯誤');showSave('⚠️ 儲存失敗',true);alert('儲存失敗：'+msg)}
+
+async function loadAll(){
+db=await openDB();
+entries=await idbAll('entries');collections=await idbAll('collections');
+const p=await req(tx('prefs','readonly').get('prefs'));if(p)prefs={from:p.from||'HKD',to:p.to||'JPY'};
+if(!collections.length){
+const jp={id:crypto.randomUUID(),name:'日本',parentId:''};collections.push(jp);await idbPut('collections',jp);
+for(const n of ['東京','大阪','福岡','購物清單','扭蛋清單']){const c={id:crypto.randomUUID(),name:n,parentId:jp.id};collections.push(c);await idbPut('collections',c)}
+const kr={id:crypto.randomUUID(),name:'韓國',parentId:''};collections.push(kr);await idbPut('collections',kr);
+for(const n of ['首爾','釜山','購物清單']){const c={id:crypto.randomUUID(),name:n,parentId:kr.id};collections.push(c);await idbPut('collections',c)}
+const hk={id:crypto.randomUUID(),name:'香港',parentId:''};collections.push(hk);await idbPut('collections',hk);
+for(const n of ['Coffee Shop','餐廳','慶祝餐廳','Bar']){const c={id:crypto.randomUUID(),name:n,parentId:hk.id};collections.push(c);await idbPut('collections',c)}
+const it={id:crypto.randomUUID(),name:'意大利',parentId:''};collections.push(it);await idbPut('collections',it);
+}}
+async function saveEntry(e){try{await idbPut('entries',e);showSave('✅ 已儲存')}catch(err){saveFail(err)}}
+async function removeEntry(id){try{await idbDel('entries',id);showSave('✅ 已刪除')}catch(err){saveFail(err)}}
+async function saveCollections(){try{await idbClear('collections');for(const c of collections)await idbPut('collections',c);showSave('✅ 已儲存')}catch(err){saveFail(err)}}
+async function savePrefs(){try{await idbPut('prefs',{key:'prefs',from:prefs.from,to:prefs.to});showSave('✅ 設定已儲存')}catch(err){saveFail(err)}}
+async function clearAll(){if(!confirm('確定清除所有記錄、收藏夾及設定？'))return;try{await idbClear('entries');await idbClear('collections');await idbClear('prefs');entries=[];collections=[];prefs={from:'HKD',to:'JPY'};render();showSave('✅ 已清除')}catch(e){saveFail(e)}}
+
+function go(v){['home','map','settings'].forEach(x=>document.getElementById('view-'+x).classList.toggle('hidden',x!==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));window.scrollTo(0,0)}
+function openForm(id){editing=id||null;const e=id?entries.find(x=>x.id===id):null;
+document.getElementById('formTitle').textContent=e?'編輯記錄':'新增記錄';
+country.value=e?.country||'';city.value=e?.city||'';collectionId.value=e?.collectionId||'';category.value=e?.category||'restaurant';name.value=e?.name||'';mapLocation.value=e?.mapLocation||'';status.value=e?.status||'want';rating.value=e?.rating||'';hashtags.value=(e?.hashtags||[]).map(x=>'#'+x).join(' ');priceLocal.value=e?.priceLocal||'';note.value=e?.note||'';social.value=e?.social||'';
+refreshCollectionOptions();updateCurrencyHint();document.getElementById('formModal').classList.add('open')}
+function closeForm(){document.getElementById('formModal').classList.remove('open')}
+function refreshCollectionOptions(){collectionId.innerHTML='<option value="">未分類</option>'+collections.map(c=>{const parent=collections.find(x=>x.id===c.parentId);const label=parent?`　├ ${c.name}`:c.name;return `<option value="${c.id}">${label}</option>`}).join('')}
+function updateCurrencyHint(){const c=collections.find(x=>x.id===collectionId.value);const cur=currencyFor({collectionId:collectionId.value});const show=!!cur;priceLabel.classList.toggle('hidden',!show);priceLocal.classList.toggle('hidden',!show);currencyHint.classList.toggle('hidden',!show);currencyHint.textContent=show?`將以 ${cur} 輸入，儲存時自動換算港幣。`:''}
+function currencyFor(entry){const col=collections.find(c=>c.id===entry.collectionId);if(!col)return '';
+const jp=collections.find(c=>c.name==='日本'),kr=collections.find(c=>c.name==='韓國'),it=collections.find(c=>c.name==='意大利');
+if(col.id===jp?.id||col.parentId===jp?.id)return 'JPY';
+if(col.id===kr?.id||col.parentId===kr?.id)return 'KRW';
+if(col.id===it?.id)return 'EUR';return ''}
+async function getHKD(amount,currency){try{const r=await (await fetch(`https://open.er-api.com/v6/latest/HKD`)).json();const rate=r.rates[currency];return rate?+(amount/rate).toFixed(2):null}catch(e){return null}}
+async function saveForm(){
+if(!country.value.trim()||!name.value.trim())return alert('請填寫國家及名稱');
+const photos=[];for(const f of photo.files)photos.push(await compressImage(f));
+const old=editing?entries.find(x=>x.id===editing):null;
+const currency=currencyFor({collectionId:collectionId.value});
+const priceLocal=priceLocal.value?+priceLocal.value:null;
+let priceHKD=null;if(currency&&priceLocal)priceHKD=await getHKD(priceLocal,currency);
+const obj={id:editing||crypto.randomUUID(),country:country.value.trim(),city:city.value.trim(),collectionId:collectionId.value,category:category.value,name:name.value.trim(),mapLocation:mapLocation.value.trim(),status:status.value,rating:rating.value?+rating.value:null,hashtags:hashtags.value.split(/[\s,]+/).map(x=>x.replace(/^#/,'').trim()).filter(Boolean),priceLocal:priceLocal,currency:currency,priceHKD:priceHKD,note:note.value,social:social.value.trim(),photos:(old?.photos||[]).concat(photos),created:old?.created||Date.now(),updated_at:new Date().toISOString()};
+if(editing)entries=entries.map(x=>x.id===editing?obj:x);else entries.unshift(obj);
+closeForm();render();await saveEntry(obj)}
+function compressImage(file){return new Promise(r=>{const img=new Image();const url=URL.createObjectURL(file);img.onload=()=>{const max=1280;let{width:w,height:h}=img;if(w>h&&w>max){h*=max/w;w=max}else if(h>w&&h>max){w*=max/h;h=max}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);r(c.toDataURL('image/jpeg',.72));URL.revokeObjectURL(url)};img.onerror=()=>r('');img.src=url})}
+async function del(id){if(!confirm('刪除此記錄？'))return;entries=entries.filter(x=>x.id!==id);render();await removeEntry(id)}
+async function toggle(id){entries=entries.map(x=>x.id===id?{...x,status:x.status==='done'?'want':'done',updated_at:new Date().toISOString()}:x);render();const e=entries.find(x=>x.id===id);await saveEntry(e)}
+
+function addCollection(){const n=collectionName.value.trim();if(!n)return alert('請輸入收藏夾名稱');const c={id:crypto.randomUUID(),name:n,parentId:''};collections.push(c);collectionName.value='';render();saveCollections()}
+async function delCollection(id){if(!confirm('刪除此收藏夾？記錄會保留並改為未分類。'))return;collections=collections.filter(c=>c.id!==id);const affected=entries.filter(e=>e.collectionId===id).map(e=>({...e,collectionId:'',updated_at:new Date().toISOString()}));entries=entries.map(e=>affected.find(a=>a.id===e.id)||e);if(collectionFilter===id)collectionFilter='';render();await saveCollections();for(const e of affected)await idbPut('entries',e)}
+function pickCollection(id){collectionFilter=id;go('home');render()}
+function clearCollectionFilter(){collectionFilter='';render()}
+
+function mapsSearch(e){const q=encodeURIComponent([e.name,e.city,e.country,e.mapLocation].filter(Boolean).join(', '));return `https://www.google.com/maps/search/?api=1&query=${q}`}
+function mapsNav(e){const q=encodeURIComponent(e.mapLocation||[e.name,e.city,e.country].filter(Boolean).join(', '));return `https://www.google.com/maps/dir/?api=1&destination=${q}`}
+function filters(){const l=[['all','全部'],['restaurant','🍽️ 餐廳'],['attraction','📍 景點'],['shopping','🛍️ 購物'],['note','📝 筆記'],['done','✅ 已完成'],['want','⭐ 想去／想買']];
+document.getElementById('filters').innerHTML=l.map(([k,t])=>`<button class="chip ${filter===k?'active':''}" onclick="filter='${k}';render()">${t}</button>`).join('')}
+function match(e){if(collectionFilter&&e.collectionId!==collectionFilter)return false;
+if(filter==='done')return e.status==='done';if(filter==='want')return e.status==='want';if(filter!=='all')return e.category===filter;return true}
+function socialEmbed(url){if(!url)return'';
+if(url.includes('threads.com'))return `<div class="embed"><iframe src="${url.replace(/\/?$/,'')}/embed" loading="lazy" allowfullscreen></iframe></div>`;
+if(url.includes('instagram.com'))return `<div class="embed"><blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="background:#fff;color:#000;max-width:100%;width:100%;padding:0;margin:0"><a href="${url}" target="_blank" rel="noopener">在 Instagram 查看</a></blockquote></div>`;
+return `<a class="link" href="${url}" target="_blank" rel="noopener">開啟連結 ↗</a>`}
+function card(e){const stars=e.rating?'★'.repeat(Math.round(e.rating))+' '+e.rating:'';const col=collections.find(c=>c.id===e.collectionId);
+return `<article class="item">${e.photos?.length?`<img src="${e.photos[0]}">`:''}<div class="body">
+<div class="title">${cats[e.category]} ${e.name}</div><div class="meta">${e.country}${e.city?' · '+e.city:''} ${stars}${col?` · 📁 ${col.name}`:''}</div>
+<span class="badge ${e.status}">${e.status==='done'?'已去／已買':'想去／想買'}</span>
+${e.priceHKD?`<p class="note">💱 當日約 HK$${e.priceHKD}（${e.currency} ${e.priceLocal}）</p>`:''}
+${e.mapLocation?`<p class="note">📍 ${e.mapLocation.replace(/</g,'&lt;')}</p>`:''}
+${e.note?`<p class="note">${e.note.replace(/</g,'&lt;')}</p>`:''}
+${e.hashtags?.length?`<div style="margin-top:8px">${e.hashtags.map(h=>`<span class="badge">#${h}</span>`).join('')}</div>`:''}
+${socialEmbed(e.social)}
+<div class="maps"><a class="view" href="${mapsSearch(e)}" target="_blank" rel="noopener">🗺️ 開啟 Google Maps</a><a class="nav" href="${mapsNav(e)}" target="_blank" rel="noopener">🧭 導航</a></div>
+<div class="actions"><button class="ghost" onclick="toggle('${e.id}')">${e.status==='done'?'改為想去':'標記已完成'}</button><button class="ghost" onclick="openForm('${e.id}')">編輯</button><button class="ghost" onclick="del('${e.id}')">刪除</button></div>
+</div></article>`}
+
+function render(){filters();
+const q=(document.getElementById('search')?.value||'').toLowerCase();
+document.getElementById('sCountries').textContent=new Set(entries.map(x=>x.country)).size;
+document.getElementById('sVisited').textContent=entries.filter(x=>x.status==='done').length;
+document.getElementById('sWishlist').textContent=entries.filter(x=>x.status==='want').length;
+const shown=entries.filter(match).filter(e=>!q||[e.name,e.country,e.city,e.note,e.mapLocation,(e.hashtags||[]).join(' ')].join(' ').toLowerCase().includes(q));
+document.getElementById('items').innerHTML=shown.length?shown.map(card).join(''):'<div class="empty">沒有符合的記錄。<br>按右下角 ＋ 新增。</div>';
+document.getElementById('recent').innerHTML=entries.slice(0,3).map(e=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${e.name}</b><div class="meta">${e.country} · ${cats[e.category]}</div></div>`).join('')||'<div class="empty">尚未有記錄</div>';
+document.getElementById('collectionFilterBar').classList.toggle('hidden',!collectionFilter);
+document.getElementById('collections').innerHTML=collections.filter(c=>!c.parentId).map(p=>{const kids=collections.filter(c=>c.parentId===p.id);const items=entries.filter(e=>e.collectionId===p.id||kids.some(k=>k.id===e.collectionId));const done=items.filter(x=>x.status==='done').length;
+return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><b onclick="pickCollection('${p.id}')" style="cursor:pointer">📁 ${p.name}</b><button class="ghost small" onclick="delCollection('${p.id}')">刪除</button></div><div class="meta">${items.length} 項記錄 · ${done} 項已完成</div>
+${kids.length?`<div style="margin-top:8px">${kids.map(k=>{const n=entries.filter(e=>e.collectionId===k.id).length;return `<button class="chip" onclick="pickCollection('${k.id}')">├ ${k.name} (${n})</button>`}).join('')}</div>`:''}</div>`}).join('')||'<div class="empty">尚未建立收藏夾</div>';
+const by={};entries.forEach(e=>{(by[e.country]??=[]).push(e)});
+document.getElementById('countries').innerHTML=Object.keys(by).sort().map(c=>{const d=by[c].filter(x=>x.status==='done').length;return `<div class="card" onclick="collectionFilter='';filter='all';go('home');document.getElementById('search').value='${c}';render()"><b>${c}</b><div class="meta">${by[c].length} 項記錄 · ${d} 項已完成</div></div>`}).join('')||'<div class="empty">尚未加入國家</div>';
+if(window.instgrm)instgrm.Embeds.process()}
+
+async function exportData(){const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({entries,collections,prefs},null,2));a.download='travel-tracker-backup.json';a.click()}
+function importData(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=async()=>{try{const d=JSON.parse(r.result);if(!d.entries)throw 0;entries=d.entries;collections=d.collections||[];prefs=d.prefs||prefs;await idbClear('entries');await idbClear('collections');for(const e of entries)await idbPut('entries',e);for(const c of collections)await idbPut('collections',c);await savePrefs();render();alert('已匯入')}catch(e){alert('匯入失敗：'+(e.message||e))}};r.readAsText(f)}
+
+(async()=>{try{await loadAll();render()}catch(e){alert('初始化失敗：'+(e.message||e))}})();
+</script>
+<script async src="https://www.instagram.com/embed.js"></script>
+</body>
+</html>

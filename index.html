@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>我的旅行足跡</title>
+<style>
+:root{--bg:#eaf4fc;--card:#fff;--card2:#f2f8fe;--line:#cfe3f5;--text:#17324a;--muted:#5b7186;--accent:#2f8fe0;--green:#2fbf71;--amber:#f5a524;--red:#ef4444}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans HK","PingFang HK",sans-serif;padding-bottom:98px}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 16px 10px}
+h1{margin:0;font-size:20px}.sub{color:var(--muted);font-size:12px;margin-top:3px}
+main{padding:14px 14px 20px;max-width:760px;margin:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(47,143,224,.07)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stat b{display:block;font-size:20px;color:var(--accent)}.stat span{font-size:11px;color:var(--muted)}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}
+input,select,textarea{width:100%;background:#fff;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px;font-size:15px}
+textarea{min-height:90px;resize:vertical}.row{display:flex;gap:8px}.row>*{flex:1}
+button{border:0;border-radius:12px;padding:12px 14px;font-size:15px;font-weight:600;background:var(--accent);color:#fff;width:100%}
+button.ghost{background:var(--card2);color:var(--text);border:1px solid var(--line)}
+button.small{padding:9px 10px;font-size:13px;width:auto}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:10px 0}
+.chip{white-space:nowrap;background:#fff;border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:999px;font-size:13px}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 3px 12px rgba(47,143,224,.07)}
+.item img{width:100%;max-height:230px;object-fit:cover;display:block}
+.body{padding:12px}.title{font-weight:700;font-size:16px}.meta{color:var(--muted);font-size:12px;margin:3px 0 8px}
+.note{white-space:pre-wrap;font-size:14px;line-height:1.5}
+.badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:5px}
+.badge.done{color:#177245;background:rgba(47,191,113,.14);border-color:rgba(47,191,113,.35)}
+.badge.want{color:#9a6200;background:rgba(245,165,36,.15);border-color:rgba(245,165,36,.4)}
+.actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.actions button{padding:9px 10px;font-size:13px;width:auto}
+.maps{display:flex;gap:8px;margin-top:10px}.maps a{flex:1;text-align:center;text-decoration:none;font-weight:600;font-size:13px;padding:10px;border-radius:12px}
+.maps .view{background:#eaf4fc;color:#1c5f96;border:1px solid #bcdcf5}.maps .nav{background:#2f8fe0;color:#fff}
+.embed{margin-top:10px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid var(--line)}.embed iframe{width:100%;min-height:420px;border:0}
+.link{display:inline-block;color:var(--accent);font-size:13px;text-decoration:none;margin-top:8px;word-break:break-all}
+.empty{text-align:center;color:var(--muted);padding:36px 10px;font-size:14px}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;z-index:30;padding-bottom:env(safe-area-inset-bottom);overflow-x:auto}
+nav button{background:none;color:var(--muted);font-size:10px;padding:8px 8px 10px;border-radius:0;white-space:nowrap}
+nav button.active{color:var(--accent)}nav span{display:block;font-size:19px;margin-bottom:2px}
+.fab{position:fixed;right:16px;bottom:98px;z-index:35;width:56px;height:56px;border-radius:50%;font-size:26px;box-shadow:0 8px 24px rgba(47,143,224,.28)}
+.modal{position:fixed;inset:0;background:rgba(23,50,74,.38);z-index:50;display:none;overflow:auto;padding:16px}.modal.open{display:block}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:18px;max-width:620px;margin:24px auto;padding:16px}
+.hidden{display:none!important}
+.weather-main{display:flex;align-items:center;gap:12px}.weather-icon{font-size:42px}.temp{font-size:34px;font-weight:800;color:#1c5f96}
+.forecast{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.day{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.day b{display:block;font-size:13px}.day span{font-size:11px;color:var(--muted)}
+.result{margin-top:12px;padding:12px;background:var(--card2);border:1px solid var(--line);border-radius:12px;font-size:15px}
+</style>
+</head>
+<body>
+
+<header><h1>🌍 我的旅行足跡</h1><div class="sub">餐廳 · 景點 · 購物 · 遊記 · 天氣 · 匯率</div></header>
+
+<main>
+<section id="view-home">
+<div class="card"><div class="grid">
+<div class="stat"><b id="sCountries">0</b><span>國家</span></div>
+<div class="stat"><b id="sVisited">0</b><span>已到訪</span></div>
+<div class="stat"><b id="sWishlist">0</b><span>想去</span></div>
+</div></div>
+<div class="card"><b>最近記錄</b><div id="recent" style="margin-top:10px"></div></div>
+</section>
+
+<section id="view-list" class="hidden">
+<input id="search" placeholder="搜尋餐廳、景點、物品或筆記…" oninput="render()">
+<div class="chips" id="filters"></div><div id="items"></div>
+</section>
+
+<section id="view-map" class="hidden">
+<div class="card"><b>國家總覽</b><p class="sub">點擊國家查看該國所有記錄。</p></div><div id="countries"></div>
+</section>
+
+<section id="view-weather" class="hidden">
+<div class="card"><b>🌤️ 旅行天氣查詢</b><p class="sub">輸入城市或地點，查看目前天氣及未來 3 日預測。</p>
+<input id="weatherCity" placeholder="例如：Tokyo、Seoul、Bangkok">
+<button style="margin-top:10px" onclick="getWeather()">查詢天氣</button>
+<button class="ghost" style="margin-top:8px" onclick="weatherCity.value=prefs.city;getWeather()">查詢預設城市</button>
+<div id="weatherResult"></div></div>
+</section>
+
+<section id="view-fx" class="hidden">
+<div class="card"><b>💱 匯率換算</b><p class="sub">使用網上即時匯率資料換算旅行預算。</p>
+<label>金額</label><input id="fxAmount" type="number" inputmode="decimal" value="1000">
+<div class="row"><div><label>由</label><select id="fxFrom"></select></div><div><label>至</label><select id="fxTo"></select></div></div>
+<button style="margin-top:12px" onclick="convert()">立即換算</button>
+<div id="fxResult"></div></div>
+</section>
+
+<section id="view-settings" class="hidden">
+<div class="card"><b>預設設定</b><p class="sub">設定天氣預設城市及匯率預設貨幣。</p>
+<label>預設城市</label><input id="prefCity" placeholder="例如：東京">
+<div class="row"><div><label>預設來源貨幣</label><select id="prefFrom"></select></div><div><label>預設目標貨幣</label><select id="prefTo"></select></div></div>
+<button style="margin-top:12px" onclick="savePrefs()">儲存設定</button></div>
+
+<div class="card"><b>資料備份</b><p class="sub">資料儲存在此裝置瀏覽器。建議定期匯出備份檔。</p>
+<div class="row" style="margin-top:10px"><button class="ghost" onclick="exportData()">匯出 JSON</button>
+<label class="ghost" style="display:block;text-align:center;padding:12px">匯入備份<input type="file" accept=".json" hidden onchange="importData(this)"></label></div></div>
+
+<div class="card"><b>清除所有資料</b><p class="sub">此操作不可復原。</p>
+<button style="background:var(--red)" onclick="if(confirm('確定清除所有記錄？')){localStorage.removeItem('travelData');localStorage.removeItem('travelPrefs');location.reload()}">清除資料</button></div>
+</section>
+</main>
+
+<button class="fab" onclick="openForm()">＋</button>
+
+<nav>
+<button class="active" data-v="home" onclick="go('home')"><span>🏠</span>總覽</button>
+<button data-v="list" onclick="go('list')"><span>📋</span>記錄</button>
+<button data-v="map" onclick="go('map')"><span>🗺️</span>國家</button>
+<button data-v="weather" onclick="go('weather')"><span>🌤️</span>天氣</button>
+<button data-v="fx" onclick="go('fx')"><span>💱</span>匯率</button>
+<button data-v="settings" onclick="go('settings')"><span>⚙️</span>設定</button>
+</nav>
+
+<div class="modal" id="formModal"><div class="sheet">
+<h2 id="formTitle">新增記錄</h2>
+<label>國家 *</label><input id="country" placeholder="例如：日本">
+<label>城市／地區</label><input id="city" placeholder="例如：東京">
+<label>類別 *</label><select id="category"><option value="restaurant">🍽️ 餐廳</option><option value="attraction">📍 景點</option><option value="shopping">🛍️ 想買的東西</option><option value="note">📝 遊記／筆記</option></select>
+<label>名稱 *</label><input id="name" placeholder="例如：一蘭拉麵">
+<label>Google Maps 地點／地址</label><input id="mapLocation" placeholder="例如：東京都新宿区… 或貼上 Google Maps 連結">
+<label>狀態</label><select id="status"><option value="want">想去／想買</option><option value="done">已去／已買</option></select>
+<label>評分（0–5）</label><input id="rating" type="number" min="0" max="5" step="0.5" placeholder="可留空">
+<label>文字記錄</label><textarea id="note" placeholder="地址、感想、必食、價錢、開放時間…"></textarea>
+<label>相片</label><input id="photo" type="file" accept="image/*" multiple>
+<label>Instagram Reels／Threads 連結</label><input id="social" placeholder="貼上公開 Reels 或 Threads 連結">
+<div class="row" style="margin-top:14px"><button class="ghost" onclick="closeForm()">取消</button><button onclick="saveForm()">儲存</button></div>
+</div></div>
+
+<script>
+const KEY='travelData',PKEY='travelPrefs';
+let data={entries:[]},editing=null,filter='all';
+let prefs=JSON.parse(localStorage.getItem(PKEY)||'null')||{city:'香港',from:'HKD',to:'JPY'};
+const cats={restaurant:'🍽️ 餐廳',attraction:'📍 景點',shopping:'🛍️ 購物',note:'📝 筆記'};
+const currencies=['HKD','USD','JPY','KRW','TWD','CNY','EUR','GBP','THB','SGD','AUD','CAD','MYR','VND','PHP','IDR'];
+
+function load(){try{data=JSON.parse(localStorage.getItem(KEY))||{entries:[]}}catch(e){data={entries:[]}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function savePrefs(){prefs={city:prefCity.value.trim()||'香港',from:prefFrom.value,to:prefTo.value};localStorage.setItem(PKEY,JSON.stringify(prefs));applyPrefs();alert('設定已儲存')}
+function applyPrefs(){weatherCity.value=prefs.city;fxFrom.value=prefs.from;fxTo.value=prefs.to}
+
+function go(v){['home','list','map','weather','fx','settings'].forEach(x=>document.getElementById('view-'+x).classList.toggle('hidden',x!==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));window.scrollTo(0,0)}
+function openForm(id){editing=id||null;const e=id?data.entries.find(x=>x.id===id):null;
+formTitle.textContent=e?'編輯記錄':'新增記錄';
+country.value=e?.country||'';city.value=e?.city||'';category.value=e?.category||'restaurant';name.value=e?.name||'';mapLocation.value=e?.mapLocation||'';status.value=e?.status||'want';rating.value=e?.rating||'';note.value=e?.note||'';social.value=e?.social||'';
+formModal.classList.add('open')}
+function closeForm(){formModal.classList.remove('open')}
+async function saveForm(){
+if(!country.value.trim()||!name.value.trim())return alert('請填寫國家及名稱');
+const photos=[];for(const f of photo.files)photos.push(await fileToData(f));
+const old=editing?data.entries.find(x=>x.id===editing):null;
+const obj={id:editing||crypto.randomUUID(),country:country.value.trim(),city:city.value.trim(),category:category.value,name:name.value.trim(),mapLocation:mapLocation.value.trim(),status:status.value,rating:rating.value?+rating.value:null,note:note.value,social:social.value.trim(),photos:(old?.photos||[]).concat(photos),created:old?.created||Date.now(),updated_at:new Date().toISOString()};
+if(editing)data.entries=data.entries.map(x=>x.id===editing?obj:x);else data.entries.unshift(obj);
+closeForm();save()}
+function fileToData(f){return new Promise(r=>{const a=new FileReader();a.onload=()=>r(a.result);a.readAsDataURL(f)})}
+function del(id){if(confirm('刪除此記錄？')){data.entries=data.entries.filter(x=>x.id!==id);save()}}
+function toggle(id){data.entries=data.entries.map(x=>x.id===id?{...x,status:x.status==='done'?'want':'done',updated_at:new Date().toISOString()}:x);save()}
+
+function mapsSearch(e){const q=encodeURIComponent([e.name,e.city,e.country,e.mapLocation].filter(Boolean).join(', '));return `https://www.google.com/maps/search/?api=1&query=${q}`}
+function mapsNav(e){const q=encodeURIComponent(e.mapLocation||[e.name,e.city,e.country].filter(Boolean).join(', '));return `https://www.google.com/maps/dir/?api=1&destination=${q}`}
+function filters(){const l=[['all','全部'],['restaurant','🍽️ 餐廳'],['attraction','📍 景點'],['shopping','🛍️ 購物'],['note','📝 筆記'],['done','✅ 已完成'],['want','⭐ 想去／想買']];
+filters_.innerHTML=l.map(([k,t])=>`<button class="chip ${filter===k?'active':''}" onclick="filter='${k}';render()">${t}</button>`).join('')}
+function match(e){if(filter==='done')return e.status==='done';if(filter==='want')return e.status==='want';if(filter!=='all')return e.category===filter;return true}
+function socialEmbed(url){if(!url)return'';
+if(url.includes('threads.com'))return `<div class="embed"><iframe src="${url.replace(/\/?$/,'')}/embed" loading="lazy" allowfullscreen></iframe></div>`;
+if(url.includes('instagram.com'))return `<div class="embed"><blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14" style="background:#fff;color:#000;max-width:100%;width:100%;padding:0;margin:0"><a href="${url}" target="_blank" rel="noopener">在 Instagram 查看</a></blockquote></div>`;
+return `<a class="link" href="${url}" target="_blank" rel="noopener">開啟連結 ↗</a>`}
+function card(e){const stars=e.rating?'★'.repeat(Math.round(e.rating))+' '+e.rating:'';
+return `<article class="item">${e.photos?.length?`<img src="${e.photos[0]}">`:''}<div class="body">
+<div class="title">${cats[e.category]} ${e.name}</div><div class="meta">${e.country}${e.city?' · '+e.city:''} ${stars}</div>
+<span class="badge ${e.status}">${e.status==='done'?'已去／已買':'想去／想買'}</span>
+${e.mapLocation?`<p class="note">📍 ${e.mapLocation.replace(/</g,'&lt;')}</p>`:''}
+${e.note?`<p class="note">${e.note.replace(/</g,'&lt;')}</p>`:''}${socialEmbed(e.social)}
+<div class="maps"><a class="view" href="${mapsSearch(e)}" target="_blank" rel="noopener">🗺️ 開啟 Google Maps</a><a class="nav" href="${mapsNav(e)}" target="_blank" rel="noopener">🧭 導航</a></div>
+<div class="actions"><button class="ghost" onclick="toggle('${e.id}')">${e.status==='done'?'改為想去':'標記已完成'}</button><button class="ghost" onclick="openForm('${e.id}')">編輯</button><button class="ghost" onclick="del('${e.id}')">刪除</button></div>
+</div></article>`}
+
+function render(){load();filters();
+const q=(search?.value||'').toLowerCase(),all=data.entries;
+sCountries.textContent=new Set(all.map(x=>x.country)).size;
+sVisited.textContent=all.filter(x=>x.status==='done').length;
+sWishlist.textContent=all.filter(x=>x.status==='want').length;
+const shown=all.filter(match).filter(e=>!q||[e.name,e.country,e.city,e.note,e.mapLocation].join(' ').toLowerCase().includes(q));
+items.innerHTML=shown.length?shown.map(card).join(''):'<div class="empty">沒有符合的記錄。<br>按右下角 ＋ 新增。</div>';
+recent.innerHTML=all.slice(0,3).map(e=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${e.name}</b><div class="meta">${e.country} · ${cats[e.category]}</div></div>`).join('')||'<div class="empty">尚未有記錄</div>';
+const by={};all.forEach(e=>{(by[e.country]??=[]).push(e)});
+countries.innerHTML=Object.keys(by).sort().map(c=>{const d=by[c].filter(x=>x.status==='done').length;return `<div class="card" onclick="filter='all';go('list');search.value='${c}';render()"><b>${c}</b><div class="meta">${by[c].length} 項記錄 · ${d} 項已完成</div></div>`}).join('')||'<div class="empty">尚未加入國家</div>';
+if(window.instgrm)instgrm.Embeds.process()}
+
+async function getWeather(){
+const city=weatherCity.value.trim();if(!city)return alert('請輸入城市');
+weatherResult.innerHTML='<div class="result">正在查詢…</div>';
+try{
+const g=await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?count=1&language=zh&format=json&name=${encodeURIComponent(city)}`)).json();
+if(!g.results?.length)throw 0;const p=g.results[0];
+const w=await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=4&timezone=auto`)).json();
+const c=w.current,d=w.daily;
+const icons={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌦️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',80:'🌦️',81:'🌧️',82:'🌧️',95:'⛈️',96:'⛈️',99:'⛈️'};
+weatherResult.innerHTML=`<div class="result"><div class="weather-main"><div class="weather-icon">${icons[c.weather_code]||'🌍'}</div><div><div class="temp">${Math.round(c.temperature_2m)}°C</div><div class="sub">${p.name}, ${p.country} · 風速 ${c.wind_speed_10m} km/h · 濕度 ${c.relative_humidity_2m}%</div></div></div>
+<div class="forecast">${d.time.slice(1,4).map((t,i)=>`<div class="day"><b>${new Date(t).toLocaleDateString('zh-HK',{weekday:'short'})}</b><span>${icons[d.weather_code[i+1]]||'🌍'}</span><span>${Math.round(d.temperature_2m_min[i+1])}–${Math.round(d.temperature_2m_max[i+1])}°C</span></div>`).join('')}</div></div>`;
+}catch(e){weatherResult.innerHTML='<div class="result">找不到該地點，請嘗試輸入英文城市名，例如 Tokyo、Seoul。</div>'}}
+
+function initFx(){const opts=currencies.map(c=>`<option value="${c}">${c}</option>`).join('');fxFrom.innerHTML=opts;fxTo.innerHTML=opts;prefFrom.innerHTML=opts;prefTo.innerHTML=opts}
+async function convert(){
+const a=+fxAmount.value;if(!a||a<=0)return alert('請輸入金額');
+fxResult.innerHTML='<div class="result">正在取得匯率…</div>';
+try{const r=await (await fetch(`https://open.er-api.com/v6/latest/${fxFrom.value}`)).json();
+const rate=r.rates[fxTo.value];if(!rate)throw 0;
+fxResult.innerHTML=`<div class="result"><b>${a.toLocaleString()} ${fxFrom.value}</b> ≈ <b style="color:var(--accent)">${(a*rate).toLocaleString(undefined,{maximumFractionDigits:2})} ${fxTo.value}</b><div class="sub" style="margin-top:6px">1 ${fxFrom.value} = ${rate} ${fxTo.value} · 更新時間：${new Date(r.time_last_update_utc).toLocaleString('zh-HK')}</div></div>`
+}catch(e){fxResult.innerHTML='<div class="result">暫時無法取得匯率，請檢查網絡後再試。</div>'}}
+
+function exportData(){const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));a.download='travel-tracker-backup.json';a.click()}
+function importData(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.entries)throw 0;data=d;save();alert('已匯入')}catch(e){alert('檔案格式不正確')}};r.readAsText(f)}
+load();initFx();applyPrefs();render();
+</script>
+<script async src="https://www.instagram.com/embed.js"></script>
+</body>
+</html>
